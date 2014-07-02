@@ -11,7 +11,7 @@ string read_string(const char* prompt)
 {
 	string input;
 	printf("%s", prompt);
-	
+	scanf(, input.str); // scan input for 255 characters that are not new lines
 
 	return input;
 }
