@@ -7,13 +7,13 @@
 
 typedef struct string
 {
-	char str[256]
+	char str[256];
 } string;
 
 /**
 	Read an integer
  */
 
-read_integer(const char* prompt);
+int read_integer(const char* prompt);
 
 #endif
