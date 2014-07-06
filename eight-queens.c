@@ -262,13 +262,28 @@ void update_attacks(chessboard_array* chessboard, int cur_row, int cur_col, bool
 
 void print_chessboard(chessboard_array chessboard, bool debug)
 {
+	const char QUEEN_CHAR[] = "Q";
+
 	for (int i = 0; i < chessboard.max; i++)
 	{
 		for (int j = 0; j < chessboard.max; j++)
 		{
 			if (debug)
 			{
-				printf("%i  ", chessboard.board[i][j]);
+				printf("%i  ", chessboard.board[i][j]); // Prints out number of attacks for each square
+			}
+
+			else
+			{
+				if (chessboard.board[i][j] == 0)
+				{
+					printf(" %s ", QUEEN_CHAR);
+				}
+
+				else
+				{
+					printf(" \u2593 ");
+				}
 			}
 		}
 
@@ -298,7 +313,7 @@ bool eight_queens(chessboard_array* chessboard, int col)
 			{
 				// Update chessboard array to position queen at current position
 				update_attacks(chessboard, i, col, true);
-				print_chessboard(*chessboard, true);
+				// print_chessboard(*chessboard, true);
 
 				if (eight_queens(chessboard, col + 1))
 				{
@@ -308,7 +323,7 @@ bool eight_queens(chessboard_array* chessboard, int col)
 				else
 				{
 					update_attacks(chessboard, i, col, false); // False is used to denote removing queen from chessboard
-					print_chessboard(*chessboard, true);
+					// print_chessboard(*chessboard, true);
 				}
 			}
 		}
@@ -317,7 +332,24 @@ bool eight_queens(chessboard_array* chessboard, int col)
 	return false;
 }
 
+/**
+	Checks if there is a solution to the n-queen on chessboard problem
+	based on what n value was specified by the user after recursive function
+	has run
+ */
+void check_solution(chessboard_array* chessboard, bool solution)
+{
+	if (!solution) // If there is no solution to the n queens problem
+	{
+		printf("There is no solution to the %i queens problem\n", chessboard->max);
+	}
 
+	else
+	{
+		printf("Solution to %i queens problem: \n", chessboard->max);
+		print_chessboard(*chessboard, false);
+	}
+}
 
 /**
 	Program initiated here
@@ -341,9 +373,9 @@ int main(int argc, char const *argv[])
 
 	solution = eight_queens(&chessboard, 0);
 
-	print_chessboard(chessboard, true);
+	check_solution(&chessboard, solution);
 
-	// For debugging purposes
+	// For debugging purposes to test the array functionality
 	// const char ROW_PROMPT[] = "Enter row number: ";
 	// const char COL_PROMPT[] = "Enter column number: ";
 	// queen_position cur_pos;
