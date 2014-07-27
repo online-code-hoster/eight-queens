@@ -8,13 +8,10 @@
 /*
 	Modules program depends on
 */
-#include "User_Input.h" //
-#include "Setup_Array.h" //
-#include "Find_Solutions.h" //
-#include "Print_Solutions.h" //
+#include "Menu.h" // Menu is called from here
 
 int main(int argc, char const *argv[])
 {
-	
+	menu();
 	return 0;
 }
