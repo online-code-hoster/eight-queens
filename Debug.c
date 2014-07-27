@@ -50,6 +50,7 @@ void debug()
 	// Ask user to enter size of array
 	int array_size = get_array_size();
 
+	
 	// Create array to store solutions (3D array that stores solution, row and column)
 	int ***n_queens_solutions = create_3D_array(array_size, array_size, STARTING_3D_VALUE);
 
@@ -57,5 +58,5 @@ void debug()
 	int ****solution_attempts = create_4D_array(array_size, array_size, STARTING_3D_VALUE, STARTING_4D_VALUE);
 
 	// Solve n queens problem
-	
+
 }
