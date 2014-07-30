@@ -2,7 +2,7 @@
 #include <stdbool.h> // For booleans in C
 
 
-#include "Test_Input.h"
+#include "Definitions.h"
 
 /**
 	Read string
@@ -55,9 +55,9 @@ int read_integer_range(const char* prompt, const int lower_int, const int upper_
 	while(input < lower_int || input > upper_int)
 	{
 		/*
-			Sprintf facilitates concatenation in C. This function is used here to enter
-			the lower and upper bounds of the range in between which input is sought from
-			the user
+			Sprintf facilitates concatenation between strings and integers in C. This 
+			function is used here to enter the lower and upper bounds of the range in 
+			between which input is sought from the user
 		*/
 		sprintf(error_message.str, "Please enter a number between %i and %i", lower_int, upper_int);
 		printf("%s\n", error_message.str);

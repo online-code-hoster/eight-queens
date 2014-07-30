@@ -2,15 +2,6 @@
 #define TEST_INPUT
 
 /**
-	This struct is the equivalent of a string
- */
-
-typedef struct string
-{
-	char str[256];
-} string;
-
-/**
 	Read an integer
  */
 
