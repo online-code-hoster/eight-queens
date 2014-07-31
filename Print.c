@@ -94,13 +94,14 @@ void print_3D_array(int*** array, int no_3D_iterations, int no_2D_iterations, bo
  */
 void print_4D_array(int**** array, int no_4D_iterations, int no_3D_iterations, int no_2D_iterations, bool debug)
 {
+	const bool NOT_SOLUTIONS_ARRAY = false;
 	string heading;
 
 	strcpy(heading.str, "SOLUTION NO ");
 
 	for (int i = 0; i < no_4D_iterations; i++)
 	{
-		printf("%s%i", heading.str, i + 1);
-		print_3D_array(array[i], no_3D_iterations, no_2D_iterations, false, debug);
+		printf("%s%i\n", heading.str, i + 1);
+		print_3D_array(array[i], no_3D_iterations, no_2D_iterations, NOT_SOLUTIONS_ARRAY, debug);
 	}
 }

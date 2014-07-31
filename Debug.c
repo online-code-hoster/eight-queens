@@ -44,17 +44,26 @@ void debug_menu()
  */
 void debug()
 {
+	const int STARTING_1D_VALUE = 1;
 	const int STARTING_3D_VALUE = 1; 
 	const int STARTING_4D_VALUE = 1; 
 	// For 3D and 4D arrays, more elements in the nth dimension will be added as solutions are generated
 
 	const int STARTING_NO_OF_SOLUTIONS = 0;
+	const int TEST_NO_OF_ITERATIONS = STARTING_NO_OF_SOLUTIONS + 1;
+	// 0 Can't be inserted into array printing functions since that won't print anything out for us debuggers to see :)
 
-	// Declaring solution storing struct
-	chessboard_array n_queens_solutions;
+	const bool SOLUTION_ARRAY = true;
+
+	const bool DEBUG = true;
+	const bool NO_DEBUG = false;
+
+	chessboard_array n_queens_solutions; // Declaring solution storing struct
+	debug_chessboard_array debug; // Stores all attempts at all solutions
 
 	// Ask user for n amount of queens to solve for
-	n_queens_solutions.max = get_array_size();
+	int n_queens = get_array_size();
+	n_queens_solutions.max = n_queens;
 
 	// Create array to store solutions (3D array that stores solution, row and column)
 	n_queens_solutions.solutions = create_3D_array(n_queens_solutions.max, n_queens_solutions.max, STARTING_3D_VALUE);
@@ -63,16 +72,25 @@ void debug()
 	n_queens_solutions.no_of_solutions = STARTING_NO_OF_SOLUTIONS;
 
 	// Print debug and non debug versions of chessboard
-	print_3D_array(n_queens_solutions.solutions, 1, n_queens_solutions.max, true, true);
-	print_3D_array(n_queens_solutions.solutions, 1, n_queens_solutions.max, true, false);
+	print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, DEBUG);
+	print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, NO_DEBUG);
 
 	printf("Array for chessboard has been created. \n");
 
-	// Create array that stores all attempts to every solution
-	int ****solution_attempts = create_4D_array(n_queens_solutions.max, n_queens_solutions.max, STARTING_3D_VALUE, STARTING_4D_VALUE);
-	
+	// Set values to debug custom type
+	debug.solution_attempts = create_4D_array(n_queens_solutions.max, n_queens_solutions.max, STARTING_3D_VALUE, STARTING_4D_VALUE);
+	debug.no_of_attempts = create_1D_array(STARTING_1D_VALUE);
+	debug.no_of_solutions = STARTING_NO_OF_SOLUTIONS;
+
+	// Print debug array
+	print_4D_array(debug.solution_attempts, TEST_NO_OF_ITERATIONS, TEST_NO_OF_ITERATIONS, n_queens, DEBUG);
+	print_4D_array(debug.solution_attempts, TEST_NO_OF_ITERATIONS, TEST_NO_OF_ITERATIONS, n_queens, NO_DEBUG);
 
 	printf("Array for storing all solution attempts has been created. \n");
+
+	// FOR DEBUGGING PURPOSES ONLY
+	// Add dimension to the solutions and debug arrays
+	
 
 	// Solve n queens problem
 
