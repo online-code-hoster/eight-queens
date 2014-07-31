@@ -21,10 +21,46 @@
 	- 3rd dimension in solutions arrays: stores all solutions without any failed attempts
 */
 
+void print_1D_array(int* array, int max_size, bool chessboard, bool debug)
+{
+	const char QUEEN_CHAR[] = "Q";
+
+	for (int i = 0; i < max_size; i++)
+	{
+		if (chessboard)
+		{
+			if (debug)
+			{
+				printf("%i  ", array[i]); // Prints out number of attacks for each square
+			}
+
+			else
+			{
+				if (array[i] == 0)
+				{
+					printf(" %s ", QUEEN_CHAR);
+				}
+
+				else
+				{
+					printf(" \u2593 "); //2593 is unicode for a chequered square, which appears on non queen squares
+				}
+			}
+		}
+
+		else
+		{
+			printf("%i  ", array[i]); // Prints the array as is
+		}
+	}
+
+	printf("\n");
+}
+
 /**
 	Prints out chessboard in both the chessboard and debug arrays
  */
-void print_2D_array(int** chessboard, int max_size, bool debug)
+void print_2D_array(int** array, int max_size, bool debug)
 {
 	
 	const char QUEEN_CHAR[] = "Q";
@@ -35,12 +71,12 @@ void print_2D_array(int** chessboard, int max_size, bool debug)
 		{
 			if (debug)
 			{
-				printf("%i  ", chessboard[i][j]); // Prints out number of attacks for each square
+				printf("%i  ", array[i][j]); // Prints out number of attacks for each square
 			}
 
 			else
 			{
-				if (chessboard[i][j] == 0)
+				if (array[i][j] == 0)
 				{
 					printf(" %s ", QUEEN_CHAR);
 				}

@@ -12,6 +12,7 @@
 #include "Create_Array.h"
 #include "Print.h"
 #include "Test_Input.h"
+#include "Modify_Array.h"
 
 
 /**
@@ -88,9 +89,26 @@ void debug()
 
 	printf("Array for storing all solution attempts has been created. \n");
 
-	// FOR DEBUGGING PURPOSES ONLY
+	// FOR DEBUGGING PURPOSES ONLY: Testing of array modification functionality
 	// Add dimension to the solutions and debug arrays
-	
+
+	const int NEW_ARRAY_SIZE = 2; 
+	// Needs to be hard coded since no solutions have been found yet, and I don't want to hardcode that :P
+	const bool NOT_CHESSBOARD = false;
+
+	add_to_3D_array(n_queens_solutions.solutions, NEW_ARRAY_SIZE, n_queens);
+	printf("Dimension added to n queens array\n");
+
+	add_to_4D_array(debug.solution_attempts, NEW_ARRAY_SIZE, n_queens);
+	printf("Dimension added to the debug array\n");
+
+	add_to_1D_array(debug.no_of_attempts, NEW_ARRAY_SIZE);
+	printf("Dimensions added to number of attempts array in the debug variable\n");
+
+	printf("Printing out the n_queens, debug and no_of_attempts arrays\n");
+	print_3D_array(n_queens_solutions.solutions, NEW_ARRAY_SIZE, n_queens_solutions.max, SOLUTION_ARRAY, DEBUG);
+	print_4D_array(debug.solution_attempts, NEW_ARRAY_SIZE, TEST_NO_OF_ITERATIONS, n_queens, DEBUG);
+	print_1D_array(debug.no_of_attempts, NEW_ARRAY_SIZE, NOT_CHESSBOARD, NO_DEBUG);
 
 	// Solve n queens problem
 
