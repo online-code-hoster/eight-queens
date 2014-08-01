@@ -39,6 +39,33 @@ void debug_menu()
 {
 
 }
+/*
+	Debug has been split into different functions because it was starting to get too damn big to manage properly
+	I'm kind of surprised I didn't do this earlier if you ask me.
+*/
+
+/**
+	Creates arrays used in debug function.
+ */
+void create_arrays()
+{
+
+}
+
+void print_arrays()
+{
+
+}
+
+void add_array_dimension()
+{
+
+}
+
+void add_remove_queens()
+{
+	
+}
 
 /**
 	Central function to debug module.
