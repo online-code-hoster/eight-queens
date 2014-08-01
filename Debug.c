@@ -41,11 +41,10 @@ void debug_menu()
 }
 
 /**
-	Central function to debug module
+	Central function to debug module.
  */
 void debug()
 {
-	const int STARTING_1D_VALUE = 1;
 	const int STARTING_3D_VALUE = 1; 
 	const int STARTING_4D_VALUE = 1; 
 	// For 3D and 4D arrays, more elements in the nth dimension will be added as solutions are generated
@@ -80,7 +79,7 @@ void debug()
 
 	// Set values to debug custom type
 	debug.solution_attempts = create_4D_array(n_queens_solutions.max, n_queens_solutions.max, STARTING_3D_VALUE, STARTING_4D_VALUE);
-	debug.no_of_attempts = create_1D_array(STARTING_1D_VALUE);
+	debug.no_of_attempts = create_1D_array(STARTING_NO_OF_SOLUTIONS + 1); // There are no solutions just yet, but I can't just insert 0 to create the array
 	debug.no_of_solutions = STARTING_NO_OF_SOLUTIONS;
 
 	// Print debug array
@@ -96,10 +95,16 @@ void debug()
 	// Needs to be hard coded since no solutions have been found yet, and I don't want to hardcode that :P
 	const bool NOT_CHESSBOARD = false;
 
+	// Add a solution to the solutions array
 	add_to_3D_array(n_queens_solutions.solutions, NEW_ARRAY_SIZE, n_queens);
 	printf("Dimension added to n queens array\n");
 
-	add_to_4D_array(debug.solution_attempts, NEW_ARRAY_SIZE, n_queens);
+	// Add an attempt to a solution in the solutions array
+	add_to_3D_array(debug.solution_attempts[]);
+	printf("Attempt added to first solution in the debug array\n");
+
+	// Add a solution to the debug array
+	add_to_4D_array(debug.solution_attempts[debug.no_of_attempts[0] + 1], NEW_ARRAY_SIZE, n_queens);
 	printf("Dimension added to the debug array\n");
 
 	add_to_1D_array(debug.no_of_attempts, NEW_ARRAY_SIZE);
@@ -109,6 +114,9 @@ void debug()
 	print_3D_array(n_queens_solutions.solutions, NEW_ARRAY_SIZE, n_queens_solutions.max, SOLUTION_ARRAY, DEBUG);
 	print_4D_array(debug.solution_attempts, NEW_ARRAY_SIZE, TEST_NO_OF_ITERATIONS, n_queens, DEBUG);
 	print_1D_array(debug.no_of_attempts, NEW_ARRAY_SIZE, NOT_CHESSBOARD, NO_DEBUG);
+
+	// Test adding and removing attacks based on inserted queen's position
+
 
 	// Solve n queens problem
 
