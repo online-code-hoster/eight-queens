@@ -109,6 +109,8 @@ void add_remove_queens()
 
 
 	// Remove the queen at position
+
+	
 }
 
 /**
