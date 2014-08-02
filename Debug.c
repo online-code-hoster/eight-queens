@@ -46,13 +46,14 @@ void debug_menu()
 
 /**
 	Populates and initialises the values in the custom types storing the main solutions array and
-	the array storing all attempts at a solution
+	the array storing all attempts at a solution.
+
+	
  */
-void populate_solution_variables(chessboard_array *n_queens_solutions, debug_chessboard_array *debug)
+void populate_solution_variables(chessboard_array *n_queens_solutions, debug_chessboard_array *debug, const int STARTING_NO_SOLUTIONS)
 {
-	const int STARTING_NO_CHESSBOARDS = 1;
-	const int STARTING_NO_OF_SOLUTIONS = 0;
-	const int STARTING_4D_VALUE = 1; // 4th dimension represents solutions found in debug array, so far this is for the first solution
+	const int STARTING_NO_CHESSBOARDS = STARTING_NO_SOLUTIONS + 1; // The first chessboard will be used to find 1 solution
+	const int STARTING_NO_ATTEMPTS = 1; // 
 
 	/*
 		For main chessboard type storing solutions only
@@ -64,12 +65,13 @@ void populate_solution_variables(chessboard_array *n_queens_solutions, debug_che
 	// Set maximum size of chessboard e.g. 8x8, 6x6 etc
 	n_queens_solutions->max = n_queens;
 
-	// Initialise array
+	// Initialise array. Here the number of chessboards means the number of solutions to start looking for
 	n_queens_solutions->solutions = create_3D_array(n_queens_solutions->max, n_queens_solutions->max, STARTING_NO_CHESSBOARDS);
 
 	// Set number of solutions found to 0
-	n_queens_solutions->no_of_solutions = STARTING_NO_OF_SOLUTIONS;
+	n_queens_solutions->no_of_solutions = STARTING_NO_SOLUTIONS;
 
+	printf("Array for chessboard has been created. \n");
 	/*
 		For debug type storing every attempt to every solution
 	*/
@@ -78,21 +80,56 @@ void populate_solution_variables(chessboard_array *n_queens_solutions, debug_che
 	debug->max_chessboard_size = n_queens;
 
 	// Initialise attempted solutions array values
-	debug->solution_attempts = create_4D_array(debug->max_chessboard_size, debug->max_chessboard_size, STARTING_NO_CHESSBOARDS, STARTING_4D_VALUE);
+	debug->solution_attempts = create_4D_array(debug->max_chessboard_size, debug->max_chessboard_size, STARTING_NO_CHESSBOARDS, STARTING_NO_ATTEMPTS);
 
 	// Initialise number of attempts array values (FIX THIS UP ASAP, this could be much better structured)
-	debug->no_of_attempts = create_1D_array(STARTING_NO_OF_SOLUTIONS + 1); // There are no solutions just yet, but I can't just insert 0 to create the array
+	debug->no_of_attempts = create_1D_array(STARTING_NO_SOLUTIONS + 1); // There are no solutions just yet, but I can't just insert 0 to create the array
 
 	// Set found number of solutions to 0
-	debug->no_of_solutions = STARTING_NO_OF_SOLUTIONS;
+	debug->no_of_solutions = STARTING_NO_SOLUTIONS;
 
+	printf("Array for storing all solution attempts has been created. \n");
 }
-
-void print_arrays()
+/**
+	Print out variables within the chessboard_array type and the debug type
+ */
+void print_variables(chessboard_array *n_queens_solutions, debug_chessboard_array *debug)
 {
-	// Print in debug mode
+	const int INDEXER = 1; // Either add 1 or minus 1 to switch between 0 and 1 indexes
 
-	// Print in non debug mode
+	const bool DEBUG = true; // When we want debug mode
+	const bool NON_DEBUG = false; // And for when we don't want debug mode
+
+	const bool SOLUTION_ARRAY = true; // When printing out the main solutions array
+	/*
+		Print out chessboard type variables and array
+	*/
+	printf("n_queens_solutions type detalis:\n")
+	printf("Number of queens to solve for: %i\n", n_queens_solutions->max);
+	printf("Number of solutions found thus far: %i\n", n_queens_solutions->no_of_solutions);
+
+	printf("Main solutions array in debug mode:\n");
+	print_3D_array(n_queens_solutions->solutions, n_queens_solutions->no_of_solutions + 1, n_queens_solutions->max, SOLUTION_ARRAY, DEBUG);
+
+	printf("Main solutions array in non debug mode:\n");
+	print_3D_array(n_queens_solutions->solutions, n_queens_solutions->no_of_solutions + 1, n_queens_solutions->max, SOLUTION_ARRAY, NO_DEBUG);
+	
+
+	/*
+		Print out debug type variables and arrays
+	*/
+	printf("debug variable details:\n");
+	printf("Number of queens to solve for: %i\n", debug->max_chessboard_size);
+	printf("Number of solutions found so far: %i\n");
+
+	printf("Debug array in debug mode:\n");
+	print_4D_array(debug.solution_attempts, debug->no_of_attempts, debug->no_of_solutions + 1, n_queens, DEBUG);
+
+	printf("Debug array in non debug mode:\n");
+	print_4D_array(debug.solution_attempts, debug->no_of_attempts, debug->no_of_solutions + 1, n_queens, NO_DEBUG);
+
+	
+
 }
 
 void add_array_dimension()
@@ -110,20 +147,21 @@ void add_remove_queens()
 
 	// Remove the queen at position
 
-	
+
 }
 
 /**
-	Central function to debug module.
+	Central function to debug module. Constants that are passed to other functions will be 0 based when
+	initialised
  */
 void debug()
 {
+	const int TEST_NO_OF_ITERATIONS = 1;
 	const int STARTING_3D_VALUE = 1; 
 	const int STARTING_4D_VALUE = 1; 
 	// For 3D and 4D arrays, more elements in the nth dimension will be added as solutions are generated
 
-	const int STARTING_NO_OF_SOLUTIONS = 0;
-	const int TEST_NO_OF_ITERATIONS = STARTING_NO_OF_SOLUTIONS + 1;
+	const int STARTING_NO_SOLUTIONS = 0;
 	// 0 Can't be inserted into array printing functions since that won't print anything out for us debuggers to see :)
 
 	const bool SOLUTION_ARRAY = true;
@@ -135,19 +173,22 @@ void debug()
 	debug_chessboard_array debug; // Stores all attempts at all solutions
 
 	// Populate the types variables created above with values
-	populate_solution_variables(&n_queens_solutions, &debug);
+	populate_solution_variables(&n_queens_solutions, &debug, STARTING_NO_SOLUTIONS);
 
-	// Print debug and non debug versions of chessboard
-	print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, DEBUG);
-	print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, NO_DEBUG);
+	// Print out contents of variables
+	print_variables(&n_queens_solutions, &debug);
 
-	printf("Array for chessboard has been created. \n");
+	// Print out arrays in the arrays
+	// print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, DEBUG);
+	// print_3D_array(n_queens_solutions.solutions, TEST_NO_OF_ITERATIONS, n_queens_solutions.max, SOLUTION_ARRAY, NO_DEBUG);
+
+	
 
 	// Print debug array
 	print_4D_array(debug.solution_attempts, TEST_NO_OF_ITERATIONS, TEST_NO_OF_ITERATIONS, n_queens, DEBUG);
 	print_4D_array(debug.solution_attempts, TEST_NO_OF_ITERATIONS, TEST_NO_OF_ITERATIONS, n_queens, NO_DEBUG);
 
-	printf("Array for storing all solution attempts has been created. \n");
+	
 
 	// FOR DEBUGGING PURPOSES ONLY: Testing of array modification functionality
 	// Add dimension to the solutions and debug arrays
