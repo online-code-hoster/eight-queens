@@ -34,6 +34,7 @@ typedef struct debug_chessboard_array
 	int**** solution_attempts; // 4D array which stores 
 	int* no_of_attempts; // Corresponds to each 3D array position in the 4D array
 	int no_of_solutions;
+	int max_chessboard_size; // Set maximum size of chessboard
 
 } debug_chessboard_array;
 
