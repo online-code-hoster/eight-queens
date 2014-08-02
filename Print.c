@@ -128,7 +128,7 @@ void print_3D_array(int*** array, int no_3D_iterations, int no_2D_iterations, bo
 /**
 	Used to print out the 4D debug array
  */
-void print_4D_array(int**** array, int no_4D_iterations, int no_3D_iterations, int no_2D_iterations, bool debug)
+void print_4D_array(int**** array, int no_4D_iterations, int *no_3D_iterations, int no_2D_iterations, bool debug)
 {
 	const bool NOT_SOLUTIONS_ARRAY = false;
 	string heading;
@@ -138,6 +138,6 @@ void print_4D_array(int**** array, int no_4D_iterations, int no_3D_iterations, i
 	for (int i = 0; i < no_4D_iterations; i++)
 	{
 		printf("%s%i\n", heading.str, i + 1);
-		print_3D_array(array[i], no_3D_iterations, no_2D_iterations, NOT_SOLUTIONS_ARRAY, debug);
+		print_3D_array(array[i], no_3D_iterations[i], no_2D_iterations, NOT_SOLUTIONS_ARRAY, debug);
 	}
 }
